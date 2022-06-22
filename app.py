@@ -1,4 +1,5 @@
 import uvicorn
+import RNA
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -10,6 +11,12 @@ def read_root():
 
 @app.get("/items")
 async def read_item(seq, ss):
+#todo: # Calculate MFE and Secondary Structure
+    fc_obj = RNA.fold_compound(
+        ss,
+        seq,)
+    ss, seq = fc_obj.mfe()
+
     return [{"seq": seq
             ,"ss": ss}]
 
